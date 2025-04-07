@@ -13,6 +13,8 @@ def create_app(test_config=False):
     # Create the Flask app instance
     app = Flask(__name__)
 
+    CORS(app, origins=["https://wfhscheduler.netlify.app"]) # CORS configuration --> allowing frontend vue to make request to flask backend
+
     # Initialize Flasgger
     swagger = Swagger(app)
 
