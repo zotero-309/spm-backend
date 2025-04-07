@@ -1,0 +1,17 @@
+{
+  "version": 2,
+  "name": "spm",
+  "builds": [
+    { "src": "run.py", "use": "@vercel/python" }
+  ],
+  "routes": [
+    { "src": "/(.*)", "dest": "run.py" }
+  ],
+  "crons": [
+    {
+      "path": "/api/application/autoReject",
+      "schedule": "00 00 * * *" 
+    }
+  ]
+  
+}
