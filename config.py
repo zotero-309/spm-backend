@@ -3,16 +3,16 @@ import os
 
 class Config:
     # Common configurations
-    DB_HOST = os.environ.get('DB_HOST', 'spmwfh123.c1mimsiy0o6r.us-east-1.rds.amazonaws.com')  # AWS RDS endpoint
-    DB_NAME = 'wfh'
+    DB_HOST = os.environ.get('DB_HOST', 'bezufa1rhnyqaefkvkqo-mysql.services.clever-cloud.com')  # AWS RDS endpoint
+    DB_NAME = 'spm-db-joe'
 
     # Detect the operating system
     system = platform.system()
 
     if system == 'Windows':
         # Windows-specific settings
-        DB_USER = os.environ.get('DB_USER', 'spmwfh')  # Default user for Windows
-        DB_PASSWORD = os.environ.get('DB_PASSWORD', 'Password123_')  # Default password for Windows
+        DB_USER = os.environ.get('DB_USER', 'udicfm3ei7jpyfx8')  # Default user for Windows
+        DB_PASSWORD = os.environ.get('DB_PASSWORD', 'h2rq5GfSphPYr7x7gDUJ')  # Default password for Windows
         DB_PORT = '3306'  # Default port
     elif system == 'Darwin':
         # macOS-specific settings
