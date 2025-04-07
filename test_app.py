@@ -12,7 +12,7 @@ class TestOwnSchedule(unittest.TestCase):
         cls.app.config['TESTING'] = True
 
         # Use MySQL running in the CI environment, matching the pipeline setup
-        cls.app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+pymysql://spmwfh:Password123_@spmwfh.c1mimsiy0o6r.us-east-1.rds.amazonaws.com:3306/wfh'
+        cls.app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+pymysql://udicfm3ei7jpyfx8:h2rq5GfSphPYr7x7gDUJ@bezufa1rhnyqaefkvkqo-mysql.services.clever-cloud.com:3306/bezufa1rhnyqaefkvkqo'
         cls.client = cls.app.test_client()
 
         # No need to create schema or insert data here; it's done by the CI pipeline

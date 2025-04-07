@@ -16,13 +16,13 @@ class Config:
         DB_PORT = '3306'  # Default port
     elif system == 'Darwin':
         # macOS-specific settings
-        DB_USER = os.environ.get('DB_USER', 'spmwfh')  # Default user for macOS
-        DB_PASSWORD = os.environ.get('DB_PASSWORD', 'Password123_')  # Default password for macOS
+        DB_USER = os.environ.get('DB_USER', 'udicfm3ei7jpyfx8')  # Default user for macOS
+        DB_PASSWORD = os.environ.get('DB_PASSWORD', 'h2rq5GfSphPYr7x7gDUJ')  # Default password for macOS
         DB_PORT = '3306'  # Default port
     else:
         # Default for Linux or CI/CD environments
-        DB_USER = os.environ.get('DB_USER', 'spmwfh')  # Replace with your RDS username
-        DB_PASSWORD = os.environ.get('DB_PASSWORD', 'Password123_')  # Replace with your RDS password
+        DB_USER = os.environ.get('DB_USER', 'udicfm3ei7jpyfx8')  # Replace with your RDS username
+        DB_PASSWORD = os.environ.get('DB_PASSWORD', 'h2rq5GfSphPYr7x7gDUJ')  # Replace with your RDS password
         DB_PORT = '3306'  # Keep the same port
 
     # SQLAlchemy connection URI for MySQL
