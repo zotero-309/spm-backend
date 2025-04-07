@@ -6,7 +6,7 @@ app = Flask(__name__)
 
 # MySQL connection details
 # app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+pymysql://root:root@localhost:8889/wfh'
-app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+pymysql://spmwfh:Password123_@spmwfh123.c1mimsiy0o6r.us-east-1.rds.amazonaws.com:3306/wfh'
+app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+pymysql://udicfm3ei7jpyfx8:h2rq5GfSphPYr7x7gDUJ@bezufa1rhnyqaefkvkqo-mysql.services.clever-cloud.com:3306/bezufa1rhnyqaefkvkqo'
 
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 

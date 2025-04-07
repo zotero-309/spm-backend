@@ -4,7 +4,7 @@ import os
 class Config:
     # Common configurations
     DB_HOST = os.environ.get('DB_HOST', 'bezufa1rhnyqaefkvkqo-mysql.services.clever-cloud.com')  # AWS RDS endpoint
-    DB_NAME = 'spm-db-joe'
+    DB_NAME = 'bezufa1rhnyqaefkvkqo'
 
     # Detect the operating system
     system = platform.system()
