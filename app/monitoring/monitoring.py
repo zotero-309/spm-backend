@@ -9,13 +9,14 @@ from datetime import datetime, timedelta
 from dateutil.relativedelta import relativedelta
 import requests
 from app import TELEGRAM_BOT_TOKEN, TELEGRAM_CHAT_ID
+import pytz
 
 
 @monitoring_blueprint.route('/telenoti/<string:username>', methods=['GET'])
 def send_notification(username):
     try:
         user_ip = request.remote_addr
-        message = f"✅ {username} just logged in to the WFH platform at {datetime.now().strftime('%d/%m/%Y, %I:%M:%S %p')} from IP: {user_ip}"
+        message = f"✅ {username} just logged in to the WFH platform at {datetime.now(pytz.timezone('Asia/Singapore')).strftime('%d/%m/%Y, %I:%M:%S %p')} from IP: {user_ip}"
         url = f"https://api.telegram.org/bot{TELEGRAM_BOT_TOKEN}/sendMessage"
         payload = {
             'chat_id': TELEGRAM_CHAT_ID,
@@ -36,7 +37,7 @@ def send_notification(username):
 def send_notificationerror(username):
     try:
         user_ip = request.remote_addr
-        message = f"❌ {username} just failed to log in to the WFH platform at {datetime.now().strftime('%d/%m/%Y, %I:%M:%S %p')} from IP: {user_ip}"
+        message = f"❌ {username} just failed to log in to the WFH platform at {datetime.now(pytz.timezone('Asia/Singapore')).strftime('%d/%m/%Y, %I:%M:%S %p')} from IP: {user_ip}"
         url = f"https://api.telegram.org/bot{TELEGRAM_BOT_TOKEN}/sendMessage"
         payload = {
             'chat_id': TELEGRAM_CHAT_ID,
