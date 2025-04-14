@@ -16,14 +16,17 @@ import pytz
 def send_notification(username):
     try:
         user_ip = request.remote_addr
-        message = f"✅ {username} just logged in to the WFH platform at {datetime.now(pytz.timezone('Asia/Singapore')).strftime('%d/%m/%Y, %I:%M:%S %p')} from IP: {user_ip}"
+        singapore_tz = pytz.timezone('Asia/Singapore')
+        now_sg = datetime.now(singapore_tz).strftime('%d/%m/%Y, %I:%M:%S %p')
+        message = f"✅ {username} just logged in to the WFH platform at {now_sg} from IP: {user_ip}"
+        
         url = f"https://api.telegram.org/bot{TELEGRAM_BOT_TOKEN}/sendMessage"
         payload = {
             'chat_id': TELEGRAM_CHAT_ID,
             'text': message
         }
         response = requests.post(url, data=payload)
-        response.raise_for_status()  # raises HTTPError if status is 4xx or 5xx
+        response.raise_for_status()
 
         return jsonify({'message': 'Telegram notification sent'}), 200
 
@@ -33,18 +36,25 @@ def send_notification(username):
         return jsonify({'error': f"Unexpected error: {str(e)}"}), 500
 
 
+
+
 @monitoring_blueprint.route('/telenotierror/<string:username>', methods=['GET'])
 def send_notificationerror(username):
     try:
         user_ip = request.remote_addr
-        message = f"❌ {username} just failed to log in to the WFH platform at {datetime.now(pytz.timezone('Asia/Singapore')).strftime('%d/%m/%Y, %I:%M:%S %p')} from IP: {user_ip}"
+
+        # Ensure timezone-aware datetime
+        singapore_tz = pytz.timezone('Asia/Singapore')
+        now_sg = datetime.now(singapore_tz).strftime('%d/%m/%Y, %I:%M:%S %p')
+
+        message = f"❌ {username} just failed to log in to the WFH platform at {now_sg} from IP: {user_ip}"
         url = f"https://api.telegram.org/bot{TELEGRAM_BOT_TOKEN}/sendMessage"
         payload = {
             'chat_id': TELEGRAM_CHAT_ID,
             'text': message
         }
         response = requests.post(url, data=payload)
-        response.raise_for_status()  # raises HTTPError if status is 4xx or 5xx
+        response.raise_for_status()
 
         return jsonify({'message': 'Telegram notification sent'}), 200
 
