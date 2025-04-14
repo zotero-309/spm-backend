@@ -56,6 +56,6 @@ CREATE TABLE wfh_withdrawal (
     withdrawal_id INT AUTO_INCREMENT PRIMARY KEY, 
     wfh_id INT,
     staff_withdraw_reason VARCHAR(255),
-    staff_withdrawal_rejection_reason VARCHAR(255),
+    manager_reject_withdrawal_reason VARCHAR(255),
     FOREIGN KEY (wfh_id) REFERENCES WFH_SCHEDULE(wfh_id) ON DELETE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
