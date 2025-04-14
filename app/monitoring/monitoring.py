@@ -15,7 +15,7 @@ import pytz
 @monitoring_blueprint.route('/telenoti/<string:username>', methods=['GET'])
 def send_notification(username):
     try:
-        user_ip = request.remote_addr
+        user_ip = request.headers.get('X-Forwarded-For', request.remote_addr).split(',')[0]
         singapore_tz = pytz.timezone('Asia/Singapore')
         now_sg = datetime.now(singapore_tz).strftime('%d/%m/%Y, %I:%M:%S %p')
         message = f"✅ {username} just logged in to the WFH platform at {now_sg} from IP: {user_ip}"
@@ -41,7 +41,7 @@ def send_notification(username):
 @monitoring_blueprint.route('/telenotierror/<string:username>', methods=['GET'])
 def send_notificationerror(username):
     try:
-        user_ip = request.remote_addr
+        user_ip = request.headers.get('X-Forwarded-For', request.remote_addr).split(',')[0]
 
         # Ensure timezone-aware datetime
         singapore_tz = pytz.timezone('Asia/Singapore')
