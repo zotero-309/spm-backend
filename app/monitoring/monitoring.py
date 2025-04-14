@@ -10,22 +10,20 @@ from dateutil.relativedelta import relativedelta
 import requests
 from app import TELEGRAM_BOT_TOKEN, TELEGRAM_CHAT_ID
 import pytz
+import hashlib
 
 
 @monitoring_blueprint.route('/telenoti/<string:username>', methods=['GET'])
 def send_notification(username):
     try:
-        def mask_ip(ip):
-            parts = ip.split('.')
-            if len(parts) == 4:
-                return f"{parts[0]}.{parts[1]}.{parts[2]}.xxx"
-            return ip  # fallback if IP is unexpected format
+        def hash_ip(ip):
+            return hashlib.sha256(ip.encode()).hexdigest()[:8]  # shorten for readability
 
         user_ip = request.headers.get('X-Forwarded-For', request.remote_addr).split(',')[0]
-        masked_ip = mask_ip(user_ip)
+        hashed_ip = hash_ip(user_ip)
         singapore_tz = pytz.timezone('Asia/Singapore')
         now_sg = datetime.now(singapore_tz).strftime('%d/%m/%Y, %I:%M:%S %p')
-        message = f"✅ {username} just logged in to the WFH platform at {now_sg} from IP: {masked_ip}"
+        message = f"✅ {username} just logged in to the WFH platform at {now_sg} from IP: {hashed_ip}"
         
         url = f"https://api.telegram.org/bot{TELEGRAM_BOT_TOKEN}/sendMessage"
         payload = {
@@ -48,20 +46,17 @@ def send_notification(username):
 @monitoring_blueprint.route('/telenotierror/<string:username>', methods=['GET'])
 def send_notificationerror(username):
     try:
-        def mask_ip(ip):
-            parts = ip.split('.')
-            if len(parts) == 4:
-                return f"{parts[0]}.{parts[1]}.{parts[2]}.xxx"
-            return ip  # fallback if IP is unexpected format
+        def hash_ip(ip):
+            return hashlib.sha256(ip.encode()).hexdigest()[:8]  # shorten for readability
 
         user_ip = request.headers.get('X-Forwarded-For', request.remote_addr).split(',')[0]
-        masked_ip = mask_ip(user_ip)
+        hashed_ip = hash_ip(user_ip)
 
         # Ensure timezone-aware datetime
         singapore_tz = pytz.timezone('Asia/Singapore')
         now_sg = datetime.now(singapore_tz).strftime('%d/%m/%Y, %I:%M:%S %p')
 
-        message = f"❌ {username} just failed to log in to the WFH platform at {now_sg} from IP: {masked_ip}"
+        message = f"❌ {username} just failed to log in to the WFH platform at {now_sg} from IP: {hashed_ip}"
         url = f"https://api.telegram.org/bot{TELEGRAM_BOT_TOKEN}/sendMessage"
         payload = {
             'chat_id': TELEGRAM_CHAT_ID,
