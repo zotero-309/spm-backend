@@ -260,7 +260,9 @@ def withdrawal_wfh(id):
         
         
     except OperationalError as e:
-        return jsonify({'error': 'Database connection issue.'}), 500
+        print("OperationalError:", str(e))  # Add this for debugging
+        return jsonify({'error': f'Database connection issue: {str(e)}'}), 500
+
 
     except SQLAlchemyError as e:
         db.session.rollback()
