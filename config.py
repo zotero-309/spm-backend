@@ -28,6 +28,9 @@ class Config:
     # SQLAlchemy connection URI for MySQL
     SQLALCHEMY_DATABASE_URI = f"mysql+pymysql://{DB_USER}:{DB_PASSWORD}@{DB_HOST}:{DB_PORT}/{DB_NAME}"
 
+    TELEGRAM_BOT_TOKEN = os.getenv("TELEGRAM_BOT_TOKEN")
+    TELEGRAM_CHAT_ID = os.getenv("TELEGRAM_CHAT_ID")
+
 class Testconfig:
     TESTING = True
     # SECRET_KEY = os.environ.get('SECRET_KEY') or 'hard-to-guess-string'

@@ -3,15 +3,21 @@ from flask_sqlalchemy import SQLAlchemy
 from flask_cors import CORS
 from config import Config, Testconfig
 from flasgger import Swagger
+from dotenv import load_dotenv
+import os
 
 # Initialize the database instance globally
 db = SQLAlchemy()
+load_dotenv()  # Loads variables from .env into environment
+TELEGRAM_BOT_TOKEN = os.getenv("TELEGRAM_BOT_TOKEN")
+TELEGRAM_CHAT_ID = os.getenv("TELEGRAM_CHAT_ID")
 
 # run.py run this function to initialise and run Flask app
 def create_app(test_config=False):
 
     # Create the Flask app instance
     app = Flask(__name__)
+
 
     CORS(app, origins=["https://wfhscheduler.netlify.app"]) # CORS configuration --> allowing frontend vue to make request to flask backend
 
@@ -37,7 +43,9 @@ def create_app(test_config=False):
     from app.schedule.schedule import schedule_blueprint
     from app.application.application import application_blueprint
     from app.staff.staff import staff_blueprint
+    from app.monitoring.monitoring import monitoring_blueprint
     app.register_blueprint(schedule_blueprint, url_prefix='/api/schedule') # how it routes to schedule_blueprint functions
     app.register_blueprint(application_blueprint, url_prefix='/api/application') # how it routes to application_blueprint functions
     app.register_blueprint(staff_blueprint, url_prefix='/api/staff') # how it routes to staff_blueprint functions
+    app.register_blueprint(monitoring_blueprint, url_prefix='/api/monitoring') # how it routes to staff_blueprint functions
     return app
